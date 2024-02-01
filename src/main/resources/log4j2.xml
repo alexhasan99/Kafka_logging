@@ -1,0 +1,17 @@
+<Configuration>
+    <Appenders>
+        <Kafka name="Kafka" topic="test">
+            <PatternLayout pattern="%date %level [%thread] %logger{0} - %msg%n"/>
+            <Property name="bootstrap.servers">kafka:9092</Property> <!-- Ändra till din Kafka-serveradress -->
+        </Kafka>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Kafka"/>
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
