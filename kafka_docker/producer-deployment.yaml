@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: producerapp-service
+spec:
+  ports:
+    - protocol: "TCP"
+      port: 8080 # The port that the service is running on in the cluster
+      targetPort: 8080 # The port exposed by the service
+  type: NodePort
+  selector:
+    app: producerapp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: producerapp-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: producerapp
+  template:
+    metadata:
+      labels:
+        app: producerapp
+    spec:
+      containers:
+        - name: producerapp
+          image: alexhasan99/producerimage:v1.2
+          ports:
+            - containerPort: 8080
+          env:
+            - name: CONTAINER_ID
+              value: "kafkaproducerV2"
+            - name: TOPIC_NAME
+              value: "hello"

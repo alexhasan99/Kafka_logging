@@ -1,17 +1,22 @@
-<Configuration>
+<Configuration status="debug" name="spring-boot-kafka-log" packages="com.example.demo">
     <Appenders>
-        <Kafka name="Kafka" topic="test">
-            <PatternLayout pattern="%date %level [%thread] %logger{0} - %msg%n"/>
-            <Property name="bootstrap.servers">kafka:9092</Property> <!-- Ändra till din Kafka-serveradress -->
+        <Kafka name="Kafka" topic="${sys:topic_name}">
+            <PatternLayout pattern="Container_ID: ${sys:name} - %p - %date %message "/>
+            <Property name="bootstrap.servers">10.98.189.161:9092</Property>
         </Kafka>
-        <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
+        <Async name="Async">
+            <AppenderRef ref="Kafka"/>
+        </Async>
+        <Console name="stdout" target="SYSTEM_OUT">
+            <PatternLayout pattern="Container_ID: ${sys:name} - %p-  %d{yyyy-MM-dd HH:mm:ss,SSS}][%c{1}:%L][%-5p]  %m%n"/> <!-- Uppdaterad layout även här -->
         </Console>
     </Appenders>
     <Loggers>
-        <Root level="info">
+        <Root level="INFO">
             <AppenderRef ref="Kafka"/>
-            <AppenderRef ref="Console"/>
+            <AppenderRef ref="stdout"/>
         </Root>
+        <Logger name="org.apache.kafka" level="WARN"/>
     </Loggers>
 </Configuration>
+

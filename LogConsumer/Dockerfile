@@ -1,7 +1,7 @@
-FROM openjdk:20-oracle
+FROM openjdk:21-oracle
 
 
-COPY ./target/consumer.jar .
+COPY target/consumer.jar .
 
 EXPOSE 9292
 

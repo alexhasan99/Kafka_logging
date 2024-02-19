@@ -80,6 +80,7 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
 		</plugins>
 		<finalName>backend</finalName>
 	</build>

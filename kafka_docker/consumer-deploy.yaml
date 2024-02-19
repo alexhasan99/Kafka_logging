@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: consumerapp
+spec:
+  type: NodePort
+  ports:
+  - port: 9292
+    targetPort: 9292
+  selector:
+    app: consumerapp
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumerapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumerapp
+  template:
+    metadata:
+      labels:
+        app: consumerapp
+    spec:
+      containers:
+      - name: consumerapp
+        image: alexhasan99/consumerimage:v1.1
+        ports:
+        - containerPort: 9292

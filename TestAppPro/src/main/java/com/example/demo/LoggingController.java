@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoggingController {
 
     private static final Logger logger = LoggerFactory.getLogger(LoggingController.class);
-
     @GetMapping("/log")
     public String logMessage() {
         logger.info("Testmeddelande skickat till Kafka");
